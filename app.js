@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
+const bodyParser= require('body-parser')
 
 const app = express();
+app.use(bodyParser.urlencoded({extended: true}))
 
 // Passport Config
 require('./config/passport')(passport);
@@ -29,6 +31,10 @@ app.set('view engine', 'ejs');
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
 
+// Test ejs
+app.get('/test',(req, res) => {
+  res.render('test')
+})
 // Express session
 app.use(
   session({
@@ -56,6 +62,10 @@ app.use(function(req, res, next) {
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
+app.use('/chat', require('./routes/chat.js'));
+app.use('/image', require('./routes/image.js'));
+
+
 
 const PORT = process.env.PORT || 5000;
 
