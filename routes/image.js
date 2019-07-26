@@ -49,7 +49,7 @@ router.post('/upload',ensureAuthenticated,(req, res, next) => {
         if (err) {
             return res.end("Something went wrong:(");
         }else{
-            httpGetAsync('http://127.0.0.1:5001/',res,(text)=>{
+            httpGetAsync('http://47.111.133.24:5001/',res,(text)=>{
                 console.log(text)
                 res.send('答案是'+text)
             })

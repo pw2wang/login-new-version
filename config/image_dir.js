@@ -1,3 +1,3 @@
-path = '/Users/basebituser0209/Desktop/andrewli/github_project/node_passport_login-master/images'
+path = '/home/project/login-system/login-new-version/images'
 
 module.exports = {image_path:path}
