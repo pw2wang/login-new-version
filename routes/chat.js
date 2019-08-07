@@ -1,26 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
-const server = require('http').createServer(router)
-var io = require('socket.io').listen(server)
 
 
 users = []
 connections = []
+messages = []
+router.get('/',ensureAuthenticated,(req,res)=>{
+    var io = req.app.get('socketio');
+    io.on('connection', function(socket){
+        console.log(req.user.name)
+        socket.removeAllListeners()
+        socket.on('chat message', function(msg){
+            io.emit('chat message', req.user.name+': '+msg);
+            console.log(socket.id+': ' + msg);
+          });
+      });
+    
+    res.render('chat')
 
-
-router.get('/', ensureAuthenticated, (req, res) =>
-  res.send('chat')
-);
-
-io.sockets.on('connection',(socket)=>{
-    connections.push(socket)    
-    console.log('Connection %s sockets connected', connections.length)
-
-    socket.on('disconnect',(data)=>{
-        connections.splice(connections.indexOf(socket),1)
-        console.log('Disconnected %s sockets connected', connections.length)
-    })
 })
 
-module.exports = router;
+
+
+module.exports = router

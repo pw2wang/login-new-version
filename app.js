@@ -25,6 +25,11 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
+// socket-io
+const server = require('http').createServer(app)
+const io = require('socket.io').listen(server)
+app.set('socketio', io);
+
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
@@ -70,4 +75,5 @@ app.use('/image', require('./routes/image.js'));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+//app.listen(PORT, console.log(`Server started on port ${PORT}`));
+server.listen(5000,console.log('server at 5000'))
