@@ -16,10 +16,10 @@ router.get('/post_task', ensureAuthenticated, (req, res) => res.render('post_tas
 router.get('/current_task', ensureAuthenticated, (req, res) => {
   const username = req.user.name
   Task.find({ user: username, status: 'ongoing'}).then(task => {
-    if (task) {
+    if (task.length > 0) {
       res.render('current_task',{tasks:task})
     }else{
-      res.send('empty list, you can enter some new tasks')
+      res.send('<form action="/task_management" method="GET">empty list, you can enter some new tasks<input type="submit" value="return"/> </form>')
     }
   })
 
@@ -30,14 +30,13 @@ router.get('/current_task', ensureAuthenticated, (req, res) => {
 router.get('/hist_task', ensureAuthenticated, (req, res) => {
   const username = req.user.name
   Task.find({ user: username }).then(task => {
-    if (task) {
+    if (task.length > 0) {
       //console.log(task)
       res.render('hist_task',{tasks:task})
     }else{
-      res.send('empty list, you can enter some new tasks')
+      res.send('<form action="/task_management" method="GET">empty list, you can enter some new tasks<input type="submit" value="return"/> </form>')
     }
   })
-  //res.render('hist_task')
 });
 
 // post_task
@@ -45,9 +44,9 @@ router.post('/post_task', (req, res) => {
   const { title, details, rewards,punishment,duration } = req.body;
   let errors = [];
   const username = req.user.name
-  const start_day = Date()
+  const start_day = new Date()
   const due_day = new Date()
-  due_day.setDate(due_day.getDate() + duration)
+  due_day.setDate(due_day.getDate() +  Number(duration))
   if (!title || !details || !rewards || !punishment || !duration) {
     errors.push({ msg: 'Please enter all fields' });
   }
