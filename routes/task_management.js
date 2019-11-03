@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
-const server = require('http').createServer(router)
 
-
-router.get('/', ensureAuthenticated, (req, res) =>
-    res.render('map')
-);
-
+// Welcome Page
+router.get('/', ensureAuthenticated, (req, res) => res.render('task_management'));
+//router.get('/', ensureAuthenticated, (req, res) => res.send('asdsa'));
 
 module.exports = router;

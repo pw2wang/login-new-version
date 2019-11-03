@@ -1,0 +1,17 @@
+<table>
+        <tr>
+            <th>title</th><th>rewards</th><th>punishment</th><th>details</th><th>start_day</th><th>due_day</th>
+        </tr>
+        
+        <% for (var i = 0; i < tasks.length; i++) { %>
+            <tr>
+                <td><%= tasks[i].title %></td>
+                <td><%= tasks[i].rewards %></td>
+                <td><%= tasks[i].punishment %></td>
+                <td><%= tasks[i].details %></td>
+                <td><%= tasks[i].start_day %></td>
+                <td><%= tasks[i].due_day %></td>
+            </tr>    
+        <% } %>
+    </table>
+    

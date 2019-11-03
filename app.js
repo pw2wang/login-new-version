@@ -66,6 +66,9 @@ app.use('/users', require('./routes/users.js'));
 app.use('/chat', require('./routes/chat.js'));
 app.use('/image', require('./routes/image.js'));
 app.use('/map', require('./routes/map.js'));
+app.use('/tasks', require('./routes/tasks.js'));
+
+app.use('/task_management', require('./routes/task_management.js'));
 
 
 const PORT = process.env.PORT || 5000;
